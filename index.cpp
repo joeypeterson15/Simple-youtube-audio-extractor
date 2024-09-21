@@ -1,9 +1,15 @@
 #include <iostream>
 #include <cstdlib>
 
-int main() {
-    std::string url = "https://www.youtube.com/watch?v=ZhHKyfZX7Gk";
-    std::string command = "yt-dlp " + url + " -x --audio-format wav --paths wav:/Users/joeypeterson/Desktop/youtube_tracks";
+int main(int argc, char** argv) {
+    if (argc < 3) {
+        std::cerr << "Enter a url as the first argument. Enter the filename as the second argument" << std::endl;
+    }
+    std::string url = argv[1];
+    std::string filename = argv[2];
+    std::string path = "/Users/joeypeterson/Desktop/youtube_tracks/";
+
+    std::string command = "yt-dlp " + url + " -x --audio-format wav -o " + path + filename;
     // try {
     //     FILE *fp = popen(command.c_str(), "r");
     //     if (fp == NULL) {
@@ -21,6 +27,7 @@ int main() {
         if (result != 0) {
             // Handle error
         }
+        std::cout << "file saved to /Desktop/youtube_tracks/" << std::endl;
     } catch (...) {
         // Handle exception
     }
